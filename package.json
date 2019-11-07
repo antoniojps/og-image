@@ -2,9 +2,6 @@
   "name": "og-image",
   "version": "1.0.0",
   "description": "Generate an open graph image for twitter/facebook/etc",
-  "engines": {
-    "node": "10.x"
-  },
   "scripts": {
     "build": "tsc -p api/tsconfig.json && tsc -p web/tsconfig.json"
   },
