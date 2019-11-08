@@ -6,9 +6,9 @@ const twemoji = require('twemoji')
 const twOptions = { folder: 'svg', ext: '.svg' }
 const emojify = (text: string) => twemoji.parse(text, twOptions)
 
-const rglr = readFileSync(`${__dirname}/../_fonts/PlantsRough.woff2`).toString(
-  'base64'
-)
+const font = readFileSync(
+  `${__dirname}/../_fonts/GlossAndBloom.woff2`
+).toString('base64')
 
 function getCss(theme: string, fontSize: string) {
   let background = '#111111'
@@ -20,10 +20,10 @@ function getCss(theme: string, fontSize: string) {
   }
   return `
     @font-face {
-        font-family: 'PlantsRough';
+        font-family: 'GlossAndBloom';
         font-style:  normal;
         font-weight: normal;
-        src: url(data:font/woff2;charset=utf-8;base64,${rglr}) format('woff2');
+        src: url(data:font/woff2;charset=utf-8;base64,${font}) format('woff2');
     }
 
     body {
@@ -98,7 +98,7 @@ function getCss(theme: string, fontSize: string) {
     }
 
     .heading {
-      font-family: 'PlantsRough', sans-serif;
+      font-family: 'GlossAndBloom', sans-serif;
       font-size: ${sanitizeHtml(fontSize)};
       color: ${foreground};
       line-height: 1;
