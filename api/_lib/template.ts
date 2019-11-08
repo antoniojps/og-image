@@ -6,13 +6,7 @@ const twemoji = require('twemoji')
 const twOptions = { folder: 'svg', ext: '.svg' }
 const emojify = (text: string) => twemoji.parse(text, twOptions)
 
-const rglr = readFileSync(
-  `${__dirname}/../_fonts/Inter-Regular.woff2`
-).toString('base64')
-const bold = readFileSync(`${__dirname}/../_fonts/Inter-Bold.woff2`).toString(
-  'base64'
-)
-const mono = readFileSync(`${__dirname}/../_fonts/Vera-Mono.woff2`).toString(
+const rglr = readFileSync(`${__dirname}/../_fonts/PlantsRough.woff2`).toString(
   'base64'
 )
 
@@ -26,46 +20,38 @@ function getCss(theme: string, fontSize: string) {
   }
   return `
     @font-face {
-        font-family: 'Inter';
+        font-family: 'PlantsRough';
         font-style:  normal;
         font-weight: normal;
         src: url(data:font/woff2;charset=utf-8;base64,${rglr}) format('woff2');
     }
-
-    @font-face {
-        font-family: 'Inter';
-        font-style:  normal;
-        font-weight: bold;
-        src: url(data:font/woff2;charset=utf-8;base64,${bold}) format('woff2');
-    }
-
-    @font-face {
-        font-family: 'Vera';
-        font-style: normal;
-        font-weight: normal;
-        src: url(data:font/woff2;charset=utf-8;base64,${mono})  format("woff2");
-      }
 
     body {
         height: 100vh;
         width: 100vw;
         background: ${background};
         background-size: auto;
+        background-image: url("https://major.shootsgud.com/sml_bg.png");
+        background-position: 50% 10%;
+        background-repeat: no-repeat;
+        background-size: cover;
         display: flex;
         text-align: center;
         align-items: center;
         justify-content: center;
+        position: relative;
     }
 
-    code {
-        color: #D400FF;
-        font-family: 'Vera';
-        white-space: pre-wrap;
-        letter-spacing: -5px;
-    }
-
-    code:before, code:after {
-        content: '\`';
+    .top {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-image: url("https://major.shootsgud.com/pubg-pt.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 2em;
+      top: 0;
+      right: 0;
     }
 
     .spacer {
@@ -97,13 +83,28 @@ function getCss(theme: string, fontSize: string) {
         vertical-align: -0.1em;
     }
 
+    p {
+      margin-top: 0.3em;
+    }
+
+    .seperator {
+      height: 10px;
+      width: 15%;
+      background: repeating-linear-gradient( 45deg, rgba(0,0,0,0), rgba(0,0,0,0) 10px, #F1B11D 10px, #F1B11D 20px );
+      margin-top: 2em;
+      margin-bottom: 1em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .heading {
-        font-family: 'Inter', sans-serif;
-        font-size: ${sanitizeHtml(fontSize)};
-        font-weight: bold;
-        color: ${foreground};
-        line-height: 1;
-    }`
+      font-family: 'PlantsRough', sans-serif;
+      font-size: ${sanitizeHtml(fontSize)};
+      color: ${foreground};
+      line-height: 1;
+      letter-spacing: 0.05em;
+    }
+  `
 }
 
 export function getHtml(parsedReq: ParsedRequest) {
@@ -118,6 +119,7 @@ export function getHtml(parsedReq: ParsedRequest) {
     </style>
     <body>
         <div>
+            <div class="top"></div>
             <div class="spacer" />
             <div class="logo-wrapper">
                 ${images
@@ -127,6 +129,7 @@ export function getHtml(parsedReq: ParsedRequest) {
                   )
                   .join('')}
             </div>
+            <div class="seperator"></div>
             <div class="heading">${emojify(
               md ? marked(text) : sanitizeHtml(text)
             )}
